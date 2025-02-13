@@ -1,20 +1,22 @@
+# Tacotron2 Dataset load 
 import torch
 
-#Tacotron2 Dataset load
+##(만약 GPU가 없다면, 'cuda'부분을 지워야 함)
 tacotron2 = torch.hub.load('NVIDIA/DeepLearningExamples:torchhub', 'nvidia_tacotron2', model_math='fp16')
 tacotron2 = tacotron2.to('cuda')
 tacotron2.eval()
 
 
 
+# Vocoder (음성 데이터 추출용) 불러오기
 waveglow = torch.hub.load('NVIDIA/DeepLearningExamples:torchhub', 'nvidia_waveglow', model_math='fp16')
 waveglow = waveglow.remove_weightnorm(waveglow)
-waveglow = waveglow.to()
+waveglow = waveglow.to('cuda')
 waveglow.eval()
 
 
 
-# 파이썬 환경 재생
+# 파이썬 환경에서 TTS 재생하기
 from IPython.display import Audio
 
 text = """
